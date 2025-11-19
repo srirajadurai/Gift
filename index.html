@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Raja ❤️ Preethika — Our Story</title>
+  <meta name="description" content="A small animated website telling the love story of Raja and Preethika. Replace image placeholders in /images to personalize." />
+  <style>
+    /* ---------- Reset & basics ---------- */
+    :root{
+      --bg:#0f1724; --card:#0b1220; --accent:#ff6b94; --muted:#9aa6b2; --glass: rgba(255,255,255,0.04);
+      --maxw:1000px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071022 0%, #0f1a2a 100%);color:#e6eef8}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:28px}
+
+    /* ---------- Header / Hero ---------- */
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#ffd6e6);display:flex;align-items:center;justify-content:center;font-weight:700;color:#1b0b12}
+    .brand h1{margin:0;font-size:20px;letter-spacing:0.4px}
+    nav{display:flex;gap:12px}
+    nav a{padding:8px 12px;border-radius:10px;background:transparent;font-size:14px}
+    nav a.primary{background:linear-gradient(90deg,var(--accent),#ff9ecb);color:#111}
+
+    /* ---------- Hero section ---------- */
+    .hero{min-height:62vh;display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:center}
+    .intro{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;backdrop-filter: blur(6px);box-shadow: 0 6px 30px rgba(2,6,23,0.6)}
+    .intro h2{font-size:32px;margin:0 0 8px}
+    .intro p{margin:0;color:var(--muted);line-height:1.5}
+    .cta{margin-top:18px;display:flex;gap:12px}
+    .btn{padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:600}
+    .btn.play{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .btn.gift{background:linear-gradient(90deg,var(--accent),#ff9ecb);color:#111}
+
+    .photo-card{height:360px;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .photo-card img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* ---------- Timeline ---------- */
+    .timeline{margin-top:26px}
+    .timeline h3{margin-bottom:14px}
+    .events{display:grid;grid-template-columns:1fr;gap:18px}
+    .event{display:flex;gap:16px;align-items:flex-start;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));box-shadow:0 6px 18px rgba(2,6,23,0.35);opacity:0;transform:translateY(18px);transition:all 700ms cubic-bezier(.2,.9,.2,1)}
+    .event.revealed{opacity:1;transform:none}
+    .ev-thumb{width:120px;height:88px;border-radius:10px;overflow:hidden;flex-shrink:0}
+    .ev-thumb img{width:100%;height:100%;object-fit:cover}
+    .ev-body h4{margin:0 0 6px}
+    .ev-body p{margin:0;color:var(--muted);line-height:1.4}
+
+    /* ---------- Gallery slider ---------- */
+    .gallery{margin-top:26px;padding:16px;border-radius:14px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .slider{position:relative;overflow:hidden;border-radius:12px}
+    .slides{display:flex;transition:transform 600ms cubic-bezier(.2,.9,.2,1)}
+    .slide{min-width:100%;height:360px}
+    .slide img{width:100%;height:100%;object-fit:cover}
+    .slider-controls{position:absolute;left:12px;right:12px;top:50%;display:flex;justify-content:space-between;transform:translateY(-50%)}
+    .dot-row{display:flex;gap:8px;justify-content:center;padding-top:10px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.12)}
+    .dot.active{background:linear-gradient(90deg,var(--accent),#ff9ecb)}
+
+    /* ---------- Final / love card ---------- */
+    .final{margin-top:28px;padding:24px;border-radius:16px;text-align:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .final h2{font-size:28px;margin:8px 0}
+    .final p{color:var(--muted)}
+    .heart{font-size:28px;color:var(--accent)}
+
+    /* ---------- Particles canvas ---------- */
+    #hearts{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+    /* ---------- Footer ---------- */
+    footer{margin-top:36px;padding:20px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;}
+      .photo-card{height:240px}
+      .slide{height:240px}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="hearts"></canvas>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">R&P</div>
+        <div>
+          <h1>Raja &amp; Preethika</h1>
+          <div style="font-size:12px;color:var(--muted)">Our story — animated</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#story">Story</a>
+        <a href="#gallery">Gallery</a>
+        <a class="primary" href="#final">Happy Birthday</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="intro">
+        <h2>For Preethika — every moment with you is my favourite.</h2>
+        <p>We met at college. Our love started in the EthnoTech lab over a shared TV series — I suggested the show, she trusted me with her Netflix account. From secret meetings to the first kiss, this page holds the path of our love.</p>
+        <div class="cta">
+          <button class="btn play" id="playMusic">▶ Play soft music</button>
+          <button class="btn gift" id="openStory">Open our story</button>
+        </div>
+
+        <div style="margin-top:16px;color:var(--muted);font-size:14px">Tip: replace the placeholder images in <code>/images/photo1.jpg</code> ... <code>photo6.jpg</code> with your own photos.</div>
+      </div>
+
+      <div class="photo-card" aria-hidden="true">
+        <img src="images/photo1.jpg" alt="photo placeholder 1 (replace)" id="heroImg"/>
+      </div>
+    </section>
+
+    <main>
+      <section id="story" class="timeline">
+        <h3>Our Timeline</h3>
+        <div class="events">
+          <article class="event" data-idx="0">
+            <div class="ev-thumb"><img src="images/photo2.jpg" alt="EthnoTech lab"/></div>
+            <div class="ev-body">
+              <h4>Where it began — EthnoTech Lab</h4>
+              <p>We met at college. Love started in the EthnoTech lab when we exchanged a series suggestion — I recommended a show and she trusted me with her Netflix account.</p>
+            </div>
+          </article>
+
+          <article class="event" data-idx="1">
+            <div class="ev-thumb"><img src="images/photo3.jpg" alt="first hidden date"/></div>
+            <div class="ev-body">
+              <h4>The hidden bike ride</h4>
+              <p>I brought you to a hidden place on my bike and promised I'd never leave you. You hugged me and kissed my face — that night changed everything.</p>
+            </div>
+          </article>
+
+          <article class="event" data-idx="2">
+            <div class="ev-thumb"><img src="images/photo4.jpg" alt="first kiss"/></div>
+            <div class="ev-body">
+              <h4>The first kiss</h4>
+              <p>The next day we met and shared our first kiss. From that moment our path of love truly began.</p>
+            </div>
+          </article>
+
+          <article class="event" data-idx="3">
+            <div class="ev-thumb"><img src="images/photo5.jpg" alt="chennai vr mall"/></div>
+            <div class="ev-body">
+              <h4>Chennai VR Mall &amp; the bus confession</h4>
+              <p>We went to Chennai VR Mall and shared a private moment in a trial room. On the bus you asked what I'd do if you married another — I said I wouldn't allow it. The spark grew brighter.</p>
+            </div>
+          </article>
+
+          <article class="event" data-idx="4">
+            <div class="ev-thumb"><img src="images/photo6.jpg" alt="proposal and ring"/></div>
+            <div class="ev-body">
+              <h4>The proposal &amp; ring</h4>
+              <p>One night you proposed — I accepted. I gave you a ring and we continued to make memories: petrol bunks, rooms, late-night Google Meets. On 16-03-2024 we made our first love.</p>
+            </div>
+          </article>
+
+          <article class="event" data-idx="5">
+            <div class="ev-thumb"><img src="images/photo7.jpg" alt="long distance"/></div>
+            <div class="ev-body">
+              <h4>Distance &amp; devotion</h4>
+              <p>Even after TCS placements and moving apart, we never left each other. We faced teasing from others, but you said we'd show them — and we have. I travel to Pondy every two weeks to be with you.</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <section id="gallery" class="gallery">
+        <h3>Gallery</h3>
+        <div class="slider" aria-label="gallery slider">
+          <div class="slides" id="slides">
+            <div class="slide"><img src="images/photo2.jpg" alt="gallery photo 1"/></div>
+            <div class="slide"><img src="images/photo3.jpg" alt="gallery photo 2"/></div>
+            <div class="slide"><img src="images/photo4.jpg" alt="gallery photo 3"/></div>
+            <div class="slide"><img src="images/photo5.jpg" alt="gallery photo 4"/></div>
+            <div class="slide"><img src="images/photo6.jpg" alt="gallery photo 5"/></div>
+            <div class="slide"><img src="images/photo1.jpg" alt="gallery photo 6"/></div>
+          </div>
+          <div class="slider-controls">
+            <button id="prev" class="btn play">◀</button>
+            <button id="next" class="btn play">▶</button>
+          </div>
+        </div>
+        <div class="dot-row" id="dots"></div>
+      </section>
+
+      <section id="final" class="final">
+        <div style="font-size:42px">🎉</div>
+        <h2>Happy Birthday, Preethika</h2>
+        <p>You are my home in every storm. I promise to hold your hand through every road. — <strong>Raja</strong></p>
+        <div style="margin-top:14px"><button class="btn gift" id="surpriseBtn">Open your surprise</button></div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>Made with ❤️ for Preethika — replace <code>/images/photo*.jpg</code> with your own photos and enjoy.</div>
+    </footer>
+  </div>
+
+  <audio id="bgMusic" loop src="audio/soft-loop.mp3"></audio>
+
+  <script>
+    /* ---------- Small helper: reveal timeline on scroll ---------- */
+    const events = document.querySelectorAll('.event');
+    function revealOnScroll(){
+      const trigger = window.innerHeight * 0.85;
+      events.forEach(ev => {
+        const r = ev.getBoundingClientRect();
+        if(r.top < trigger) ev.classList.add('revealed');
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', () => { revealOnScroll(); startHearts(); });
+
+    /* ---------- Slider ---------- */
+    const slides = document.getElementById('slides');
+    const slideCount = slides.children.length;
+    let idx = 0;
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const dotsRow = document.getElementById('dots');
+    for(let i=0;i<slideCount;i++){ const d = document.createElement('div'); d.className='dot'+(i===0? ' active':''); d.dataset.i=i; dotsRow.appendChild(d); d.addEventListener('click',()=>{go(i)}); }
+    function go(i){ idx = (i+slideCount)%slideCount; slides.style.transform = `translateX(${ -idx*100 }%)`; updateDots(); }
+    function updateDots(){ document.querySelectorAll('.dot').forEach((d,ndx)=>d.classList.toggle('active', ndx===idx)); }
+    prev.addEventListener('click',()=>go(idx-1)); next.addEventListener('click',()=>go(idx+1));
+    let sliderAuto = setInterval(()=>go(idx+1), 4500);
+    document.querySelector('.slider').addEventListener('mouseenter', ()=>clearInterval(sliderAuto));
+    document.querySelector('.slider').addEventListener('mouseleave', ()=>sliderAuto = setInterval(()=>go(idx+1),4500));
+
+    /* ---------- Play music ---------- */
+    const musicBtn = document.getElementById('playMusic');
+    const audio = document.getElementById('bgMusic');
+    musicBtn.addEventListener('click', () => {
+      if(audio.paused){ audio.play().catch(()=>{}); musicBtn.textContent='⏸ Pause music'; }
+      else{ audio.pause(); musicBtn.textContent='▶ Play soft music'; }
+    });
+
+    /* ---------- Surprise Button (can reveal message modal) ---------- */
+    document.getElementById('surpriseBtn').addEventListener('click', ()=>{
+      alert('Close your eyes and imagine us — I\'m coming soon. Happy Birthday, my love.\n\n— Raja');
+    });
+
+    /* ---------- Smooth open story button ---------- */
+    document.getElementById('openStory').addEventListener('click', ()=>{
+      document.querySelector('#story').scrollIntoView({behavior:'smooth'});
+    });
+
+    /* ---------- Heart particle background ---------- */
+    function startHearts(){
+      const canvas = document.getElementById('hearts');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = innerWidth; let h = canvas.height = innerHeight; window.addEventListener('resize', ()=>{w=canvas.width=innerWidth; h=canvas.height=innerHeight});
+      const hearts = [];
+      function Heart(x,y,vx,vy,size,life,spin){return {x,y,vx,vy,size,life,spin,age:0}};
+      function spawn(){
+        const x = Math.random()*w; const y = -20; const vx=(Math.random()-0.5)*1.2; const vy=1+Math.random()*1.2; const size=6+Math.random()*10; const life=200+Math.random()*200; hearts.push(Heart(x,y,vx,vy,size,life,Math.random()*0.1));
+      }
+      function drawHeart(x,y,size,alpha,rot){
+        ctx.save(); ctx.translate(x,y); ctx.rotate(rot);
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        const topCurveHeight = size * 0.3;
+        ctx.moveTo(0, topCurveHeight);
+        ctx.bezierCurveTo(size/2, -size/2, size*1.5, size/3, 0, size);
+        ctx.bezierCurveTo(-size*1.5, size/3, -size/2, -size/2, 0, topCurveHeight);
+        ctx.fillStyle = 'rgba(255,110,148,1)';
+        ctx.fill();
+        ctx.restore();
+      }
+      let tick = 0;
+      (function loop(){
+        requestAnimationFrame(loop);
+        ctx.clearRect(0,0,w,h);
+        if(Math.random()<0.22) spawn();
+        for(let i=hearts.length-1;i>=0;i--){
+          const p = hearts[i]; p.x += p.vx; p.y += p.vy; p.vy += 0.01; p.age++; const alpha = Math.max(0,1 - p.age/p.life);
+          drawHeart(p.x,p.y,p.size,alpha, Math.sin(p.age*p.spin)*0.5);
+          if(p.age>p.life || p.y>h+50) hearts.splice(i,1);
+        }
+        tick++;
+      })();
+    }
+
+    /* ---------- small accessibility: keyboard nav for slider ---------- */
+    document.addEventListener('keydown',(e)=>{ if(e.key==='ArrowRight') go(idx+1); if(e.key==='ArrowLeft') go(idx-1); });
+
+    // done
+  </script>
+</body>
+</html>
