@@ -8,12 +8,12 @@
   <style>
     /* ---------- Reset & basics ---------- */
     :root{
-      --bg:#0f1724; --card:#0b1220; --accent:#ff6b94; --muted:#9aa6b2; --glass: rgba(255,255,255,0.04);
+      --bg:#1a0b1f; --card:#2a0f2f; --accent:#ff5f9e; --muted:#d8b4dd; --glass: rgba(255,192,220,0.06);
       --maxw:1000px;
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071022 0%, #0f1a2a 100%);color:#e6eef8}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#2a0f2f 0%, #1a0b1f 100%);color:#e6eef8}
     a{color:var(--accent);text-decoration:none}
     .wrap{max-width:var(--maxw);margin:0 auto;padding:28px}
 
@@ -28,7 +28,7 @@
 
     /* ---------- Hero section ---------- */
     .hero{min-height:62vh;display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:center}
-    .intro{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:18px;backdrop-filter: blur(6px);box-shadow: 0 6px 30px rgba(2,6,23,0.6)}
+    .intro{padding:28px;background:linear-gradient(180deg, rgba(255,192,220,0.05), rgba(255,160,200,0.03));border-radius:18px;backdrop-filter: blur(6px);box-shadow: 0 6px 30px rgba(255,100,150,0.25)}
     .intro h2{font-size:32px;margin:0 0 8px}
     .intro p{margin:0;color:var(--muted);line-height:1.5}
     .cta{margin-top:18px;display:flex;gap:12px}
@@ -36,14 +36,14 @@
     .btn.play{background:transparent;border:1px solid rgba(255,255,255,0.06)}
     .btn.gift{background:linear-gradient(90deg,var(--accent),#ff9ecb);color:#111}
 
-    .photo-card{height:360px;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .photo-card{height:360px;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,192,220,0.05), rgba(255,160,200,0.03));}
     .photo-card img{width:100%;height:100%;object-fit:cover;display:block}
 
     /* ---------- Timeline ---------- */
     .timeline{margin-top:26px}
     .timeline h3{margin-bottom:14px}
     .events{display:grid;grid-template-columns:1fr;gap:18px}
-    .event{display:flex;gap:16px;align-items:flex-start;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));box-shadow:0 6px 18px rgba(2,6,23,0.35);opacity:0;transform:translateY(18px);transition:all 700ms cubic-bezier(.2,.9,.2,1)}
+    .event{animation: fadeUp 1.2s ease both;display:flex;gap:16px;align-items:flex-start;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));box-shadow:0 6px 18px rgba(255,100,150,0.2);opacity:0;transform:translateY(18px);transition:all 700ms cubic-bezier(.2,.9,.2,1)}
     .event.revealed{opacity:1;transform:none}
     .ev-thumb{width:120px;height:88px;border-radius:10px;overflow:hidden;flex-shrink:0}
     .ev-thumb img{width:100%;height:100%;object-fit:cover}
@@ -51,7 +51,7 @@
     .ev-body p{margin:0;color:var(--muted);line-height:1.4}
 
     /* ---------- Gallery slider ---------- */
-    .gallery{margin-top:26px;padding:16px;border-radius:14px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .gallery{margin-top:26px;padding:16px;border-radius:14px;background:linear-gradient(90deg, rgba(255,192,220,0.05), rgba(255,160,200,0.03));}
     .slider{position:relative;overflow:hidden;border-radius:12px}
     .slides{display:flex;transition:transform 600ms cubic-bezier(.2,.9,.2,1)}
     .slide{min-width:100%;height:360px}
@@ -62,7 +62,7 @@
     .dot.active{background:linear-gradient(90deg,var(--accent),#ff9ecb)}
 
     /* ---------- Final / love card ---------- */
-    .final{margin-top:28px;padding:24px;border-radius:16px;text-align:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .final{margin-top:28px;padding:24px;border-radius:16px;text-align:center;background:linear-gradient(180deg, rgba(255,192,220,0.05), rgba(255,160,200,0.03));}
     .final h2{font-size:28px;margin:8px 0}
     .final p{color:var(--muted)}
     .heart{font-size:28px;color:var(--accent)}
@@ -79,6 +79,9 @@
       .photo-card{height:240px}
       .slide{height:240px}
     }
+  @keyframes fadeUp{0%{opacity:0; transform:translateY(30px);}100%{opacity:1; transform:translateY(0);}}
+    @keyframes pulseGlow{0%{box-shadow:0 0 0 rgba(255,95,158,0.4);}100%{box-shadow:0 0 25px rgba(255,95,158,0.6);} }
+    .photo-card{animation:pulseGlow 3s ease-in-out infinite alternate;}
   </style>
 </head>
 <body>
@@ -102,7 +105,7 @@
     <section class="hero">
       <div class="intro">
         <h2>For Preethika — every moment with you is my favourite.</h2>
-        <p>We met in college. Our love quietly began in the EthnoTech lab, in those simple exchanges about series. I suggested a show, and you trusted me enough to share your Netflix account with me — that small gesture made me feel so close to you, as if you had already given me a little place in your world. From secret meetings to the first kiss, this page holds the path of our love.</p>
+        <p>We met in college, and from the very first moment I spoke to you, something in my heart felt incredibly warm. Our love quietly began in the EthnoTech lab, in those simple exchanges about series. I suggested a show, and you trusted me enough to share your Netflix account with me — that small gesture made me feel so close to you, as if you had already given me a little place in your world. From secret meetings to the first kiss, this page holds the path of our love.</p>
         <div class="cta">
           <button class="btn play" id="playMusic">▶ Play soft music</button>
           <button class="btn gift" id="openStory">Open our story</button>
@@ -148,7 +151,7 @@
             <div class="ev-thumb"><img src="images/photo5.jpg" alt="chennai vr mall"/></div>
             <div class="ev-body">
               <h4>Chennai VR Mall &amp; the bus confession</h4>
-              <p>We went to Chennai VR Mall, laughed, held each other close, and even shared a private, intimate moment in a trial room that brought us closer than ever. One day when I was travelling to college on the bus, you asked me what I would do if you had to marry someone else. I told you I would never allow it — because losing you would mean losing a part of myself. That question, and my answer, lit a spark between us that has been burning ever since.</p>
+              <p>We went to Chennai VR Mall, laughed, held each other close, and even shared a private, intimate moment in a trial room that brought us closer than ever. One day when I was travelling to college on the bus, you asked me what I would do if you had to marry someone else. Without hesitation, I told you I would never allow it — because losing you would mean losing a part of myself. That question, and my answer, lit a spark between us that has been burning ever since.</p>
             </div>
           </article>
 
@@ -164,7 +167,7 @@
             <div class="ev-thumb"><img src="images/photo7.jpg" alt="long distance"/></div>
             <div class="ev-body">
               <h4>Distance &amp; devotion</h4>
-              <p>Even after TCS placements and the distance that came between us, we never let go of each other. People teased us because of our backgrounds, but you looked at me with so much confidence and said, 'We will show them who we are.' And my love, we truly have. Even when we moved apart, I travelled to Pondy every two weeks just to see you, because being with you, even for a short time, makes every mile worth it.</p>
+              <p>Even after our TCS placements and the distance that came between us, we never let go of each other. People teased us because of our backgrounds, but you looked at me with so much confidence and said, 'We will show them who we are.' And my love, we truly have. Even when we moved apart, I travelled to Pondy every two weeks just to see you, because being with you, even for a short time, makes every mile worth it.</p>
             </div>
           </article>
 
